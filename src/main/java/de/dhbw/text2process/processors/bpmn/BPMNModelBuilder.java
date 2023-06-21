@@ -1,9 +1,6 @@
 package de.dhbw.text2process.processors.bpmn;
 
-import de.dhbw.text2process.enums.FlowDirection;
-import de.dhbw.text2process.enums.FlowType;
-import de.dhbw.text2process.enums.PhraseType;
-import de.dhbw.text2process.enums.SpecifierType;
+import de.dhbw.text2process.enums.*;
 import de.dhbw.text2process.helper.TextToProcess;
 import de.dhbw.text2process.models.bpmn.Association;
 import de.dhbw.text2process.models.bpmn.DataObject;
@@ -585,6 +582,10 @@ public class BPMNModelBuilder extends ProcessModelBuilder {
           f_notAssigned.clear();
         }
       }
+      if (!a.getTriggerType().equals(TriggerType.TRIGGER_TYPE_NOT_TRIGGERED)) {
+        _obj = createEventNode(a);
+      }
+
       if (_obj instanceof Event) {
         Event e = (Event) _obj;
         f_model.addEvent(e);

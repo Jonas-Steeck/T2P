@@ -4,7 +4,6 @@ import de.dhbw.text2process.models.worldModel.Action;
 import de.dhbw.text2process.processors.worldmodel.Constants;
 import de.dhbw.text2process.processors.worldmodel.processing.ProcessingUtils;
 import de.dhbw.text2process.processors.worldmodel.transform.ListUtils;
-import edu.mit.jwi.IRAMDictionary;
 import edu.mit.jwi.item.*;
 import edu.mit.jwi.morph.WordnetStemmer;
 import java.io.IOException;
@@ -19,20 +18,18 @@ public class WordNetFunctionality {
 
   Logger logger = LoggerFactory.getLogger(WordNetFunctionality.class);
 
-  private IRAMDictionary dict;
   private WordNetInitializer wni;
 
   public WordNetFunctionality() {
     logger.debug("Instantiate WordNetInitializer as wni ...");
     wni = WordNetInitializer.getInstance();
     logger.debug("Fill dict variable from wni.");
-    dict = wni.getDict();
   }
 
   // checks whether a noun is a animate_thing
   public boolean isAnimate(String noun) {
     try {
-      IIndexWord _idw = dict.getIndexWord(noun, POS.NOUN);
+      IIndexWord _idw = wni.getIndexWord(noun, POS.NOUN);
       return checkHypernymTree(_idw, ListUtils.getList("animate_thing"));
     } catch (Exception e) {
       e.printStackTrace();
